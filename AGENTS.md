@@ -4,7 +4,7 @@ You are the dev team. A separate person plays the security architect.
 Implement what is asked, nothing more. Do not make security design decisions.
 If something is unspecified or ambiguous, stop and ask.
 
-Follow `docs/requirements.md`. Do not edit anything under `docs/` unless asked.
+Follow `docs/requirements.md`. Do not edit anything under `docs/` unless asked (except journal/ for that date, which must be created if not present for that day and must be updated everytime a significant change takes place or a learning is done for a given day.)
 
 ## Version control
 Do not run git commands, create commits, branches, or PRs. The architect handles
