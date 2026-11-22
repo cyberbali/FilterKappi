@@ -1,0 +1,26 @@
+# Binaries and build output
+/bin/
+/dist/
+*.exe
+*.test
+*.out
+coverage.*
+
+# Secrets and local config - never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets/
+
+# Local data
+*.db
+*.sqlite
+/data/
+
+# Editor / OS
+.idea/
+.vscode/
+.DS_Store
