@@ -23,7 +23,7 @@ threats, specifying controls, building them, and attacking the result.
 | [docs/threat-model.md](docs/threat-model.md) | Diagram, boundaries, threats |
 | [docs/requirements.md](docs/requirements.md) | Security requirements and design decisions |
 | [docs/findings.md](docs/findings.md) | Results of attacking my own code |
-| [docs/journal.md](docs/journal.md) | Running notes |
+| [docs/journal/](docs/journal/) | Running notes |
 
 ## Stack
 
