@@ -1,4 +1,4 @@
-# FilterKappi ☕
+# FilterKappi (v 1.0.0) ☕
 
 > Great filter coffee keeps out the grounds; FilterKappi keeps out everything untrusted.
 
@@ -24,11 +24,45 @@ threats, specifying controls, building them, and attacking the result.
 | [docs/requirements.md](docs/requirements.md) | Security requirements and design decisions |
 | [docs/findings.md](docs/findings.md) | Results of attacking my own code |
 | [docs/journal/](docs/journal/) | Running notes |
+| [docs/version.md](docs/version.md) | Semantic version and release history |
 
 ## Stack
 
-Go (standard library first), local deployment only.
+- **Runtime:** Go 1.22+ (standard library only, zero external dependencies)
+- **Database:** PostgreSQL 16 (isolated on internal bridge network, not exposed to host)
+- **Containers:** Multi-stage minimal runtime running as an unprivileged user (`10001:10001`)
 
 ## Status
 
-Scoping. No application code yet.
+Project skeleton and initial security guardrails in place:
+- Fail-closed configuration loading and validation
+- Structured JSON logging (`log/slog`) with contextual `X-Request-ID` tracing
+- Hardened HTTP server (`net/http`) with explicit timeouts and request body limits
+- `/healthz` endpoint
+- Network isolation for data persistence and non-root container execution
+
+## Quickstart
+
+### Prerequisites
+- Go 1.22+
+- Docker & Docker Compose (optional for containerized run)
+
+### Local Development
+```bash
+# Run tests
+make test
+# or: go test -v ./...
+
+# Build binary
+make build
+
+# Run application
+make run
+# Query health check
+curl -i http://localhost:8080/healthz
+```
+
+### Containerized Execution
+```bash
+docker compose up --build
+```
