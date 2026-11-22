@@ -4,36 +4,31 @@
 
 A testament to secure application design - hypothetical, security-hardened coffee shop web application, built in Go by **Cyberbali**.
 
-The goal is not the coffee shop. The goal is to practise the full security
-engineering lifecycle: discovery, threat modeling, risk assessment, requirements,
-architecture, secure build, verification, and operations, all documented here.
+It exists to practise security architecture: analysing a system, modelling
+threats, specifying controls, building them, and attacking the result.
 
-## How this repo is organised
+## Approach
 
-| Path | Purpose |
+1. Interview the "client" and define the scope
+2. Model threats
+3. Write requirements for the threats that matter
+4. Build a small slice, then attack it
+5. Fix what broke and record the findings
+
+## Docs
+
+| File | Purpose |
 |---|---|
-| `docs/00-engagement` | Charter, personas, rules of the exercise |
-| `docs/01-discovery` | Architect questionnaire and client answers |
-| `docs/02-scope` | Features and their attack surface |
-| `docs/03-assets` | Asset inventory and data classification |
-| `docs/04-threat-model` | DFDs, trust boundaries, STRIDE, abuse cases, attack trees |
-| `docs/05-risk-register` | Risks, ratings, treatments |
-| `docs/06-requirements` | Security requirements (ASVS-based) and traceability matrix |
-| `docs/07-architecture/adr` | Architecture Decision Records |
-| `docs/08-sdlc` | Secure SDLC, CI gates, dependency policy |
-| `docs/09-verification` | Test plans, scan results, pen-test reports |
-| `docs/10-operations` | Logging, alerting, runbooks, incident response |
-| `docs/journal` | Daily log (`YYYY-MM-DD.md`) |
-| `cmd/`, `internal/`, `migrations/`, `test/` | Application code |
+| [docs/scope.md](docs/scope.md) | Features, users, data |
+| [docs/threat-model.md](docs/threat-model.md) | Diagram, boundaries, threats |
+| [docs/requirements.md](docs/requirements.md) | Security requirements and design decisions |
+| [docs/findings.md](docs/findings.md) | Results of attacking my own code |
+| [docs/journal.md](docs/journal.md) | Running notes |
+
+## Stack
+
+Go (standard library first), local deployment only.
 
 ## Status
 
-See the latest entry in `docs/journal/` and the open milestones.
-
-## Phases
-
-0 Setup, 1 Discovery, 2 Scope, 3 Assets, 4 Threat model, 5 Risk, 6 Requirements,
-7 Architecture, 8 SDLC, 9 Build, 10 Verification, 11 Detection and response,
-12 Residual risk and retrospective.
-
-> This is a training project. Nothing here has been security reviewed by anyone but its author.
+Scoping. No application code yet.
