@@ -39,6 +39,15 @@ Update these in the same task as the code change:
 (scope, threat model, requirements, findings). If your change makes one of them
 wrong or incomplete, list the needed change in your summary instead.
 
+## Architect-supplied docs
+The architect may paste exact content and instruct you to write it into a
+`docs/` file (for example `docs/scope.md`, `docs/threat-model.md`,
+`docs/requirements.md`, `docs/findings.md`). When that happens:
+- Write the content verbatim. Do not reword, reorder, summarize, or "improve" it.
+- Touch only the file and section named in the instruction.
+- If the content conflicts with the code or another doc, do not fix it. List the conflict in your summary.
+- Without an explicit instruction naming the file, do not edit these files.
+
 ## Engineering rules
 - Go standard library first. Adding a dependency needs a written justification and a pinned version. Ask before adding one.
 - Config comes from environment variables, validated at startup. Fail closed on bad config. No hardcoded secrets.

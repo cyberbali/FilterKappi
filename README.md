@@ -1,4 +1,4 @@
-# FilterKappi (v 1.0.0) ☕
+# FilterKappi (v 1.0.2) ☕
 
 > Great filter coffee keeps out the grounds; FilterKappi keeps out everything untrusted.
 
