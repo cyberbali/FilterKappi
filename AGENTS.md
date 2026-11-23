@@ -1,47 +1,33 @@
-# Instructions for the coding agent (the "dev team")
+# Instructions for the coding agent
 
-You are the development team for FilterKappi, a Go web application. A separate
-person plays the **security architect**. The architect makes security design
-decisions; you implement them.
+You are the dev team. A separate person plays the security architect.
+Implement what is asked, nothing more. Do not make security design decisions.
+If something is unspecified or ambiguous, stop and ask.
 
-## Authority
+Follow `docs/requirements.md`. Do not edit anything under `docs/` unless asked (except `docs/journal/` for that date, which must be created if not present for that day and updated every time a significant change takes place or a learning is done, and `docs/version.md`, which must be bumped every time a change takes place based on Semantic Versioning: MAJOR, MINOR, or PATCH).
 
-- Do not make security design decisions on your own. Follow:
-  - ADRs in `docs/07-architecture/adr/`
-  - Requirements in `docs/06-requirements/`
-- If something is unspecified or ambiguous, **stop and ask**, or propose a draft ADR. Do not guess.
-- Do not add features, endpoints, or dependencies that are not in the current task.
+## Version control
+Do not run git commands, create commits, branches, or PRs. The architect handles
+all of that. Leave changes in the working tree.
 
-## Workflow
-
-- One small, focused PR per task. Branch from `main`.
-- Every PR must reference requirement IDs (e.g. `AUTH-003`) and name the tests that prove them.
-- Use Conventional Commits: `feat:`, `fix:`, `sec:`, `test:`, `docs:`, `chore:`.
-- Update `docs/06-requirements/traceability-matrix.md` when a requirement gets implemented or tested.
-- Add a note to the day's `docs/journal/` file if you made any non-obvious decision.
-
-## Engineering rules
-
-- Go standard library first. Any new dependency needs a written justification in the PR and must be pinned.
-- Configuration comes from environment variables, validated at startup. Fail closed on bad config.
-- No hardcoded secrets. Never log secrets, tokens, passwords, or PII.
-- Parameterized queries only. No string-built SQL.
-- Validate input at the boundary (type, length, range, allowlist). Encode output by context.
-- Errors returned to clients are generic. Details go to structured logs (`log/slog`) with a request ID.
-- Set timeouts on every server, client, and DB connection. Limit request body sizes.
+## Rules
+- Go standard library first. Adding a dependency needs a written justification
+  and a pinned version. Ask before adding one.
+- Config comes from environment variables, validated at startup. Fail closed on
+  bad config. No hardcoded secrets, and no real secrets in `.env.example`.
+- Never log secrets or personal data.
+- Parameterized queries only. Validate input at the boundary. Encode output by context.
+- Generic errors to clients, details to structured logs (`log/slog`).
+- Set timeouts on servers, clients, and DB connections. Limit request body size.
 - Authorization is checked server-side on every request, deny by default.
-- Prefer constant-time comparison for secrets and tokens.
-- Write tests alongside code, including **negative and abuse-case tests**.
+- Write tests, including negative and abuse-case tests.
+- Do not add features, endpoints, or files that are not in the current task.
 
-## Definition of done
-
-- `make test lint vuln` passes
-- CI green (vet, staticcheck, govulncheck, gosec, gitleaks)
-- Requirement IDs and tests listed in the PR
-- Docs updated
-
-## Never
-
-- Disable a security control to make a test pass.
-- Commit `.env` files, keys, or real credentials.
-- Merge your own work without architect review.
+## When you finish a task
+- Must update `docs/version.md` based on Semantic Versioning (MAJOR for breaking changes, MINOR for new features/controls, PATCH for fixes/docs/refactoring).
+- Must update the version in the title of `README.md` (e.g. `# FilterKappi (v 1.0.0) ☕`) whenever the version is updated, and update other sections if needed.
+Reply with a short summary:
+1. What you built or changed (files)
+2. Which requirement IDs it covers (e.g. AUTH-001)
+3. Which tests prove it
+4. Anything you were unsure about or deliberately did not do

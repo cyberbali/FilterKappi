@@ -1,0 +1,46 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - HTTP_HOST=0.0.0.0
+      - HTTP_PORT=8080
+      - LOG_LEVEL=INFO
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=filterkappi
+      - DB_USER=filterkappi
+      - DB_PASSWORD=${DB_PASSWORD:-filterkappi_dev_password_only}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - internal_net
+
+  db:
+    image: postgres:16-alpine
+    # Security requirement: database is NOT exposed to the host.
+    # No "ports" mapping is defined; only accessible via internal_net.
+    environment:
+      - POSTGRES_DB=filterkappi
+      - POSTGRES_USER=filterkappi
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-filterkappi_dev_password_only}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U filterkappi -d filterkappi"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - internal_net
+
+networks:
+  internal_net:
+    driver: bridge
+
+volumes:
+  postgres_data:
