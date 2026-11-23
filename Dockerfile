@@ -17,7 +17,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build \
     -o /bin/filterkappi ./cmd/filterkappi
 
 # Stage 2: Minimal, non-root runtime container
-FROM alpine:3.21
+FROM alpine:3.24
 
 # Create non-root dedicated group and user (UID/GID 10001)
 RUN addgroup -g 10001 -S appgroup && \
